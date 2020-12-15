@@ -19,16 +19,6 @@ componentDidMount(){
   this.setState({building: getBuilding});
 }
 
-//Mark completed task
-markComplete = (id) =>{
-  this.setState({ Building: this.state.building.map(building => {
-    if(building.id === id){
-      building.completed =!building.completed
-    }
-    return building;
-  }) });
-}
-
 //Delete todo
 
 delBuilding = (id) =>{
@@ -57,8 +47,7 @@ AddBuilding = (BoilerId, BusinessName,email,Phone,Adress) =>{
         <Route path="/" render={props =>(
           <React.Fragment>
             <AddBuilding addBuilding ={this.AddBuilding} />
-            <Building building={this.state.building} markComplete=
-            {this.markComplete} delBuilding={this.delBuilding}/>
+            <Building building={this.state.building}  delBuilding={this.delBuilding}/>
           </React.Fragment>
         )} />
         </div>

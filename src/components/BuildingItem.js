@@ -12,17 +12,16 @@ class BuildingItem extends Component {
             'line-through' : 'none'
         }
     }
-    markComplete = (e) => {
-        console.log(this.props)
-    }
+ 
     render() {
-        const {id, BoilerId, BusinessName, email, Phone, Adress} = this.props.building;
+        const  {id, BoilerId, BusinessName, email, Phone, Adress} = this.props.building;
         return (
-            <div style={this.getStyle()}>
+            <div style={this.getStyle()} key={this.props.building.key}>
+                <input type= "text" 
+                id={this.props.building.key}
+                value= {this.props.building.text}
+                />
                <p>
-                   <input type="checkbox" onChange={this.props.markComplete.bind 
-                    //eslint-disable-next-line
-                    (this, id)} /> {' '}
                   Nº {BoilerId} - Name: {BusinessName} - Email: {email} - Phone:{Phone} - Adress:{Adress}
                    <button onClick={() => this.props.delBuilding(id)} 
                    style={btnStyle}>x</button>
