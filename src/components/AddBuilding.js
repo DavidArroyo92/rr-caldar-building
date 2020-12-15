@@ -3,11 +3,43 @@ import PropTypes from 'prop-types';
 
  export class AddBuilding extends Component {
      state = {
-         title:''
+         id:'',
+         boilerId:'',
+         businessName:'',
+         email:'',
+         phone:'',
+         adress:'',
      };
+
+     componentDidUpdate(prevProps, prevState) {
+        if (this.props.buildingEdit !== prevProps.buildingEdit) {
+          this.handleInput(this.props.buildingEdit);
+        }
+      }
+    
+      handleInput = (buildingEdit) => {
+        this.setState({
+        id: buildingEdit.id,
+        boilerId: buildingEdit.boilerId,
+        businessName: buildingEdit.businessName,
+        email: buildingEdit.email,
+        phone: buildingEdit.phone,
+        adress: buildingEdit.adress,
+        });
+      };
 
      onSubmit = (e) => {
          e.preventDefault();
+         if (this.state.id) {
+            this.props.updatebuilding(
+                this.state.id,
+                this.state.boilerId,
+                this.state.businessName,
+                this.state.email,
+                this.state.phone,
+                this.state.adress
+            );
+          } else {
          this.props.addBuilding(
             this.state.boilerId,
             this.state.businessName,
@@ -15,7 +47,9 @@ import PropTypes from 'prop-types';
             this.state.phone,
             this.state.adress
         );
+         }
          this.setState({
+            id: "",
              boilerId:'',
              businessName:'',
              email:'',
@@ -24,16 +58,16 @@ import PropTypes from 'prop-types';
             });
 
      }
-     onChange = (e) => this.setState({ [e.target.name]:
-         e.target.value});
+     onChange = (e) => this.setState({ [e.target.name]: e.target.value});
 
     render(){
         return(
             <div>
                 <h3>
-                    Add new building
+                {this.state.id ? "Edit building" : "Add new Building"}
                 </h3>
                 <form onSubmit ={this.onSubmit} style={{display:'flex'}}>
+                     <input type="hidden" name="id" value={this.state.id} />
                     <input
                     type="text"
                     name="boilerId"
@@ -52,7 +86,7 @@ import PropTypes from 'prop-types';
                     />
                     <input
                     type="text"
-                    name="Email"
+                    name="email"
                     style={inputStyle}
                     placeholder="Add e-mail"
                     value={this.state.email}
@@ -96,7 +130,9 @@ const inputStyle = {
 
 //proptypes
 AddBuilding.propTypes = {
-   addBuilding: PropTypes.func.isRequired
+   addBuilding: PropTypes.func.isRequired,
+   updateBuilding: PropTypes.func.isRequired,
+   buildingEdit: PropTypes.object,
   }
 
 export default AddBuilding 

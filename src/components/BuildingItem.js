@@ -16,16 +16,14 @@ class BuildingItem extends Component {
     render() {
         const  {id, BoilerId, BusinessName, email, Phone, Adress} = this.props.building;
         return (
-            <div style={this.getStyle()} key={this.props.building.key}>
-                <input type= "text" 
-                id={this.props.building.key}
-                value= {this.props.building.text}
-                />
+            <div style={this.getStyle()} >
+                
                <p>
-                  Nº {BoilerId} - Name: {BusinessName} - Email: {email} - Phone:{Phone} - Adress:{Adress}
+                  BoilerID {BoilerId} - Name: {BusinessName} - Email: {email} - Phone:{Phone} - Adress:{Adress}
                    <button onClick={() => this.props.delBuilding(id)} 
                    style={btnStyle}>x</button>
-                   <button style={btnStyleEdit}>Edit</button>
+                   <button onClick={() => this.props.editBuilding(id)}
+                   style={btnStyleEdit}>Edit</button>
                </p>
             </div>
         )
@@ -33,9 +31,10 @@ class BuildingItem extends Component {
 }
 
 //proptypes
-BuildingItem.PropTypes = {
+BuildingItem.propTypes = {
     building: PropTypes.object.isRequired,
     delBuilding: PropTypes.func.isRequired,
+    editBuilding: PropTypes.func.isRequired,
   }
 
 //Get Styles to Buttons
